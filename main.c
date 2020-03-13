@@ -1,20 +1,27 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <n_core.h>
-#include <n_math.h>
+#include "src/n_core.h"
+#include "src/n_math.h"
 
 
 int main() {
-        int *shape = calloc(2, sizeof(int));
-        shape[0] = 2;
-        shape[1] = 3;
+        long *shape = int_arr_from_arglist(
+                2,    // number of dims
+                2, 3  // the shape
+        );
 
         NDARR *a = create_ones(2, shape);
+        NDARR *b = create_ones(2, shape);
 
-        n_add(a, a, a);
+        n_add(a, b, b);
+        n_mul(b, b, b);
+        n_sub(b, a, b);
 
-        for (int i = 0; i < a->size; i++) printf("%.2f ", a->data[i]);
+        for (int i = 0; i < a->size; i++) 
+                printf("%.2f ", b->data[i]);
+        printf("\n");
 
-        printf("Hello dunia");
+        printf("Hello dunia !");
+
         return 0;
 }

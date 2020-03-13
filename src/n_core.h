@@ -1,17 +1,25 @@
 #ifndef CORE_H
 #define CORE_H
 
+#include <stdbool.h>
+
+typedef struct _ndarr NDARR;
 struct _ndarr {
         double* data;
-        int* shape;
-        int size;
+        long* shape;
+        long* stride;
+        long size;
+        int requires_grad;
+        NDARR **prevs;
 };
-typedef struct _ndarr NDARR;
 
-int shape_to_size(int ndim, int *shape);
+long *int_arr_from_arglist(long count, ...);
+long shape_to_size(long ndim, long *shape);
+
 void fill_with_constant(NDARR *ndarr, double val);
+void reshape(NDARR *ndarr, long* new_shape);
 
-NDARR *create_empty_ndarr(int ndim, int *shape);
-NDARR *create_ones(int ndim, int *shape);
+NDARR *create_empty_ndarr(long ndim, long *shape);
+NDARR *create_ones(long ndim, long *shape);
 
 #endif

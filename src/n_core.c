@@ -1,9 +1,23 @@
 #include <stdlib.h>
+#include <stdarg.h>
 #include "n_core.h"
 
-int shape_to_size(int ndim, int *shape) 
+long *int_arr_from_arglist(long count, ...) 
 {
-        int prod = 1;
+        long *res = calloc(count, sizeof(long));
+        va_list list;
+
+        va_start(list, count);
+        for (int i = 0; i < count; ++i) 
+                res[i] = va_arg(list, int);
+        va_end(list);
+
+        return res;
+}
+
+long shape_to_size(long ndim, long *shape) 
+{
+        long prod = 1;
         for (int i = 0; i < ndim; ++i) prod *= *(shape + i);
         return prod;
 }
@@ -14,7 +28,7 @@ void fill_with_constant(NDARR *ndarr, double val) {
         }
 }
 
-NDARR *create_empty_ndarr(int ndim, int *shape)
+NDARR *create_empty_ndarr(long ndim, long *shape)
 {
         NDARR *res = malloc(sizeof(*res));
         res->shape = shape;
@@ -24,7 +38,7 @@ NDARR *create_empty_ndarr(int ndim, int *shape)
         return res;
 }
 
-NDARR *create_ones(int ndim, int *shape)
+NDARR *create_ones(long ndim, long *shape)
 {
         NDARR *res = create_empty_ndarr(ndim, shape);
         fill_with_constant(res, 1.0);
