@@ -1,0 +1,12 @@
+CC = gcc
+CFLAGS = -g -Wall
+SOURCES = src/*.c
+
+TARGET = main
+SUFFIX = .exe
+
+all: $(TARGET).c
+	$(CC) $(CFLAGS) -o $(TARGET)$(SUFFIX) $(TARGET).c $(SOURCES) -Isrc/
+
+test:
+	main
