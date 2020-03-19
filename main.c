@@ -12,9 +12,10 @@ int main() {
 
         NDARR *a = create_ones(2, shape);
         NDARR *b = create_ones(2, shape);
+        NDARR *c;
 
-        n_add(a, b, b);
-        n_mul(b, b, b);
+        c = add(a, b);
+        n_mul(c, c, b);
         n_sub(b, a, b);
 
         for (int i = 0; i < a->size; i++) 

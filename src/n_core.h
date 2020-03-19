@@ -9,6 +9,7 @@ struct _ndarr {
         long* shape;
         long* stride;
         long size;
+        long ndim;
         int requires_grad;
         NDARR **prevs;
 };

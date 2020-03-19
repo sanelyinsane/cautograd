@@ -32,6 +32,7 @@ NDARR *create_empty_ndarr(long ndim, long *shape)
 {
         NDARR *res = malloc(sizeof(*res));
         res->shape = shape;
+        res->ndim = ndim;
         res->size = shape_to_size(ndim, shape);
         res->data = calloc(res->size, sizeof(double));
 

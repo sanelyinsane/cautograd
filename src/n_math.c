@@ -15,3 +15,9 @@ double _mul(double a, double b) { return a * b; }
 void n_add(NDARR *a, NDARR *b, NDARR *out) { bfunc(_add, a, b, out); }
 void n_sub(NDARR *a, NDARR *b, NDARR *out) { bfunc(_sub, a, b, out); }
 void n_mul(NDARR *a, NDARR *b, NDARR *out) { bfunc(_mul, a, b, out); }
+
+NDARR *add(NDARR *a, NDARR *b) {
+        NDARR *res = create_empty_ndarr(a->ndim, a->shape);
+        n_add(a, b, res);
+        return res;
+}
