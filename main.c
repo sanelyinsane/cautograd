@@ -5,24 +5,25 @@
 
 
 int main() {
-        long *shape = int_arr_from_arglist(
-                2,    // number of dims
-                2, 3  // the shape
-        );
+        long shape[2] = {2, 2};
+        double data[4] = {1.0, 2.0, 3.0, 4.0};
 
         NDARR *a = create_ones(2, shape);
-        NDARR *b = create_ones(2, shape);
+        NDARR *b = create_ndarr(2, shape, data);
         NDARR *c;
 
         c = add(a, b);
         n_mul(c, c, b);
         n_sub(b, a, b);
 
-        for (int i = 0; i < a->size; i++) 
+        for (int i = 0; i < b->size; i++) {
                 printf("%.2f ", b->data[i]);
+        }
         printf("\n");
 
-        printf("Hello dunia !");
+        free_ndarr(a);
+        free_ndarr(b);
+        free_ndarr(c);
 
         return 0;
 }

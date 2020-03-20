@@ -2,6 +2,7 @@
 
 void bfunc(double (*f)(double, double), NDARR *a, NDARR *b, NDARR *out) 
 {
+        out = realloc(out, sizeof(a->data) * a->size);
         for (int i = 0; i < out->size; ++i) {
                 out->data[i] = (*f)(a->data[i], b->data[i]);
         }
