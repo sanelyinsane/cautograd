@@ -1,30 +1,46 @@
 #ifndef CORE_H
 #define CORE_H
 
-#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #define MAX_NUM_NODE 1024
 
+int  GLOBAL_NDARR_COUNT;
+
 typedef struct _ndarr NDARR;
 struct _ndarr {
-        double* data;
-        long* shape;
-        long* stride;
-        long size;
-        long ndim;
-        int requires_grad;
-        int is_leaf;
-        NDARR **prevs;
+        double *data;
+        long   *shape;
+        long   *strides;
+        long   size;
+        long   ndim;
+        int    requires_grad;
+        int    is_leaf;
+	int    id;
+	void   (*backward_func)(NDARR **, NDARR*);
+        NDARR  **prevs;
 };
 
-NDARR *GLOBAL_TRACKER;
+/*
+ * A linked list to track the created NDARRs.
+ */
+typedef struct _lnode LNode;
+struct _lnode {
+	NDARR *data;
+	LNode *next;
+};
+LNode *LLIST;
+void lnode_clear(LNode *node);
+void lnode_push(LNode *node, NDARR *data);
+void lnode_traverse(LNode *node);
 
-void finalize();
+void n_cleanup();
+void n_init();
 void free_ndarr(NDARR *a);
-long *int_arr_from_arglist(long count, ...);
 long shape_to_size(long ndim, long *shape);
 
-void init();
 void fill_with_constant(NDARR *ndarr, double val);
 void reshape(NDARR *ndarr, long* new_shape);
 

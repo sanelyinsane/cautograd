@@ -12,5 +12,7 @@ void n_sub(NDARR *a, NDARR *b, NDARR *out);
 void n_mul(NDARR *a, NDARR *b, NDARR *out);
 
 NDARR *add(NDARR *a, NDARR *b);
+NDARR *sub(NDARR *a, NDARR *b);
+NDARR *mul(NDARR *a, NDARR *b);
 
 #endif

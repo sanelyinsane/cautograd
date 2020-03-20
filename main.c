@@ -5,25 +5,26 @@
 
 
 int main() {
+	n_init();
+
         long shape[2] = {2, 2};
-        double data[4] = {1.0, 2.0, 3.0, 4.0};
+        double data[4] = {1.0, 2.0,
+                          3.0, 4.0};
 
         NDARR *a = create_ones(2, shape);
         NDARR *b = create_ndarr(2, shape, data);
-        NDARR *c;
+        NDARR *res;
 
-        c = add(a, b);
-        n_mul(c, c, b);
-        n_sub(b, a, b);
+        res = add(a, b);
+        res = add(res, b);
 
-        for (int i = 0; i < b->size; i++) {
-                printf("%.2f ", b->data[i]);
+        for (int i = 0; i < res->size; i++) {
+                printf("%.2f ", res->data[i]);
         }
         printf("\n");
+	lnode_traverse(LLIST);
 
-        free_ndarr(a);
-        free_ndarr(b);
-        free_ndarr(c);
+	n_cleanup();
 
         return 0;
 }
