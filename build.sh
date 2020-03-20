@@ -1,0 +1,1 @@
+clear && gcc -Wall -ggdb3 -o main main.c src/n_core.c src/n_math.c && ./main && echo "press enter to execute valgrind" && read i && valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=valgrind-out.txt ./main&& cat valgrind-out.txt
